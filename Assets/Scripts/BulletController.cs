@@ -8,12 +8,10 @@ public class BulletController : MonoBehaviour
     Rigidbody rigidBody;
 
     public float bulletSpeed = 15f;
-
     public AudioClip BulletHitAudio;
-
     public float bulletLifeTime = 10f;
-
     public GameObject bulletImpactEffect;
+    public int damage = 10;
 
     void Awake()
     {
