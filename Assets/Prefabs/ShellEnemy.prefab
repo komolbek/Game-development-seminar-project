@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7365020652174955310}
   - component: {fileID: 7365020652174955311}
   m_Layer: 0
-  m_Name: Shell
+  m_Name: ShellEnemy
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1bfb9d90a70d7fa4ab1cf5729056ab71, type: 2}
+  - {fileID: 2100000, guid: 55ac68c33cb2d144a9976df607b5e754, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61efb314676f33843b43967507190944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 15
+  bulletSpeed: 30
   BulletHitAudio: {fileID: 8300000, guid: 55c030d3c6b3b674e9bdd7449446236c, type: 3}
   bulletLifeTime: 10
   bulletImpactEffect: {fileID: 1000010321467122, guid: 0b39af0d39f5fe443807a910bd327abe, type: 3}
+  damage: 30

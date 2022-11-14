@@ -1,29 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     public float fireRate = 0.75f;
     public GameObject bulletPrefab;
     public Transform bulletPosition;
+
     float nextFire;
 
     public AudioClip playerShootingAudio;
-
     public GameObject bulletFiringEffect;
 
-    private void Start()
+    [HideInInspector]
+    public int health = 100;
+    public Slider healthBar; 
+
+    private void OnCollisionEnter(Collision collision)
     {
-        print("check start");
+        if (collision.gameObject.tag.Equals("Bullet"))
+        {
+
+            BulletController bullet = collision.gameObject.GetComponent<BulletController>();            
+
+            TakeDamage(bullet.damage);
+        }
     }
 
-    private void OnTriggerStay(Collider collider)
+    private void TakeDamage(int damage)
     {
-        if (collider.gameObject.tag.Equals("Player"))
+        this.health -= damage;
+        this.healthBar.value = health;
+
+        if (this.health <= 0)
+        {
+            EnemyDied();
+        }
+    }
+
+    private void EnemyDied()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
         {
             print("Enter this line 1");
-            transform.LookAt(collider.transform);
+            transform.LookAt(other.transform);
             Fire();
         }
     }

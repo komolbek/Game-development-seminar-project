@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,8 +15,11 @@ public class Player : MonoBehaviour
     float nextFire;
 
     public AudioClip playerShootingAudio;
-
     public GameObject bulletFiringEffect;
+
+    [HideInInspector]
+    public int health = 100;
+    public Slider healthBar;
 
 
     // Start is called before the first frame update
@@ -65,8 +69,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        print("Enter this line 1");
+        if (collision.gameObject.tag.Equals("Bullet"))
+        {
+            BulletController bullet = collision.gameObject.GetComponent<BulletController>();
+            
+            TakeDamage(bullet.damage);
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        this.health -= damage;
+        this.healthBar.value = health;
+
+        if (health <= 0)
+        {
+            PlayerDied();
+        }
+    }
+
+    private void PlayerDied()
+    {
+        gameObject.SetActive(false);
     }
 }
