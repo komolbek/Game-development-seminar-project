@@ -16,7 +16,10 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector]
     public int health = 100;
-    public Slider healthBar; 
+    public Slider healthBar;
+
+    public delegate void EnemyKilled();
+    public static event EnemyKilled OnEnemyKilled;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -43,6 +46,11 @@ public class Enemy : MonoBehaviour
     private void EnemyDied()
     {
         gameObject.SetActive(false);
+
+        if (OnEnemyKilled != null)
+        {
+            OnEnemyKilled.Invoke();
+        }
     }
 
     private void OnTriggerStay(Collider other)
