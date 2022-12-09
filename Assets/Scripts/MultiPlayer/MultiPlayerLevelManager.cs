@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+using System;
 
 public class MultiPlayerLevelManager : MonoBehaviourPunCallbacks
 {
@@ -20,12 +20,34 @@ public class MultiPlayerLevelManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         if (targetPlayer.GetScore() == maxKills)
+        {
             winnerText.text = targetPlayer.NickName;
             gameOverPopup.SetActive(true);
+        }
+
+        StorePersonalBest();
+    }
+
+    void StorePersonalBest()
+    {
+        int currentScore = PhotonNetwork.LocalPlayer.GetScore();
+        PlayerData playerData = GameManager.shared.playerData;
+
+        if (currentScore > playerData.bestScore)
+        {
+            playerData.username = PhotonNetwork.LocalPlayer.NickName;
+            playerData.bestScore = currentScore;
+            playerData.bestScoreDate = DateTime.UtcNow.ToString();
+            playerData.totalPlayersInGame = PhotonNetwork.CurrentRoom.PlayerCount;
+            playerData.roomName = PhotonNetwork.CurrentRoom.Name;
+
+            GameManager.shared.SavePlayerData();
+        }
     }
 
     public void LeaveGame()
     {
+        Debug.Log("LEAVE BUTTON PRESSED");
         PhotonNetwork.LeaveRoom();
     }
 
@@ -36,6 +58,7 @@ public class MultiPlayerLevelManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        PhotonNetwork.LoadLevel("MultiPlayer");
+        SceneManager.LoadScene("MultiPlayer");
     }
 }
+
