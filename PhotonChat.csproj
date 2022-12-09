@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DB07EDDE-B06D-15A0-45F4-957DEF0299B2}</ProjectGuid>
+    <ProjectGuid>{1A18F5BC-194D-DB6E-1CE2-79A33AAD7F8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonChat</AssemblyName>
